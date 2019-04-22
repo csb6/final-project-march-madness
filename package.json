@@ -1,0 +1,23 @@
+{
+  "name": "march-madness",
+  "version": "1.0.0",
+  "description": "A March Madness bracket generator and player searcher",
+  "main": "march-madness_service.js",
+  "dependencies": {"express": "^4.16.4",
+                   "fs": "^0.0.1-security",
+                   "mysql": "^2.17.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/uacs337spring2019/final-project-march-madness.git"
+  },
+  "author": "Cole Blakley",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/uacs337spring2019/final-project-march-madness/issues"
+  },
+  "homepage": "https://github.com/uacs337spring2019/final-project-march-madness#readme"
+}
