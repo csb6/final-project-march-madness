@@ -14,12 +14,19 @@
     });
     const fs = require("fs");
     const mysql = require("mysql");
-    let connection = mysql.createConnection({
+    //mysql://b36475d0fffd42:ed4df197@us-cdbr-iron-east-02.cleardb.net/heroku_773aec2ba21032d?reconnect=true
+    /*let connection = mysql.createConnection({
         host: "localhost",
         database: "march_madness",
         user: "root",
         password: "Orange-Spheres7!",
         debug: "true"
+	});*/
+    let connection = mysql.createConnection({
+        host: "us-cdbr-iron-east-02.cleardb.net",
+        database: "heroku_773aec2ba21032d",
+        user: "b36475d0fffd42",
+        password: "ed4df197",
     });
 
     function sendPlayerStats(connection, res, teamId) {

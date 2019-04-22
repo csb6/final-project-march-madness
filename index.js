@@ -4,6 +4,7 @@
     const ROUND_AMOUNT = 6;
     //Name of stat currently display on screen
     let currentStat = "";
+    const siteUrl = "http://march-madness-app.herokuapp.com:";
 
     function checkStatus(response) {
         if (response.status >= 200 && response.status < 300) {
@@ -47,7 +48,7 @@
         for(let i=0; i<matchups.length; i++) {
             let name1 = matchups[i][0];
             let name2 = matchups[i][1];
-            let url = "http://march-madness-generator.herokuapp.com:"+process.env.PORT+"?mode=stat&stat="+stat+"&name1="+name1+
+            let url = siteUrl+process.env.PORT+"?mode=stat&stat="+stat+"&name1="+name1+
                 "&name2="+name2;
             fetch(url)
                 .then(checkStatus)
@@ -117,7 +118,7 @@
 	//Set module-global indicator of currently-used stat
 	currentStat = stat;
         document.getElementById("main-content").innerHTML = "";
-        let url = "http://march-madness-generator.herokuapp.com:"+process.env.PORT+"?mode=initial-matchups";
+        let url = siteUrl+process.env.PORT+"?mode=initial-matchups";
         fetch(url)
             .then(checkStatus)
             .then(function(responseText) {
@@ -175,7 +176,7 @@
     function checkAccuracy() {
         let userBracket = getCurrentBracket();
         console.log(userBracket);
-        let url = "http://march-madness-generator.herokuapp.com:"+process.env.PORT+"?mode=full-bracket";
+        let url = siteUrl+process.env.PORT+"?mode=full-bracket";
         fetch(url)
             .then(checkStatus)
             .then(function(responseText) {
@@ -215,7 +216,7 @@
 		body : JSON.stringify(message)
 	    };
 	    console.log(fetchOptions);
-	    let url = "http://march-madness-generator.herokuapp.com:"+process.env.PORT;
+	    let url = siteUrl+process.env.PORT;
 	    fetch(url, fetchOptions)
 		.then(checkStatus)
 		.then(function(responseText) {
@@ -229,7 +230,7 @@
 
     function loadBracket() {
 	let userName = document.getElementById("load-user-name").value;
-	let url = "http://march-madness-generator.herokuapp.com:"+process.env.PORT+"?mode=load-user&name="+userName;
+	let url = siteUrl+process.env.PORT+"?mode=load-user&name="+userName;
 	fetch(url)
 	    .then(checkStatus)
 	    .then(function(responseText) {
