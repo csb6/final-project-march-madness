@@ -1,0 +1,34 @@
+/*
+  Cole Blakley
+  CSC 337
+  Final Project
+
+  This file contains styles specific to team-search.html. The search area is centered
+  on the page, as is the overall content area and the table for the team's stats.
+  The table has a white background and a thin black border between its cells.
+*/
+#search-area {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#main-content {
+    text-align: center;
+}
+
+#stat-table {
+    background-color: white;
+    border-collapse: collapse;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+}
+
+#stat-table, #stat-table tr, #stat-table th, #stat-table td {
+    border: 1px black solid;
+    padding: 4px;
+}
+
+#stat-table td {
+    text-align: left;
+}

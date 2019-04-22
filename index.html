@@ -1,0 +1,70 @@
+<!--
+    Cole Blakley
+    CSC 337
+    Final Project
+
+    This file contains the page layout for the Bracket Generator page, the initial
+    page that the user will encounter. It uses 2 stylesheets: index.css, which
+    is specific to this page, and march-madness.css, which is shared with team-search.html.
+    The page contains a header/footer, with the header containing buttons to choose
+    a stat as well as input boxes to save/load brackets under a user's name. The
+    bracket-content section will contain a full tournament bracket, generated dynamically.
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>March Madness Bracket Generator</title>
+    <link href="index.css" type="text/css" rel="stylesheet">
+    <link href="march-madness.css" type="text/css" rel="stylesheet">
+    <script src="index.js"></script>
+  </head>
+  <body>
+    <div id="error-area"></div>
+    <div id="header">
+      <div>
+	<img src="basketball.png" alt="basketball">
+	<h1>March Madness Bracket Generator</h1>
+	<q>Pick a stat - Get a bracket!</q>
+	<a href="team-search.html">Team Search</a>
+      </div>
+      <p>Step 1: Select a stat:</p>
+      <div id="stat-choices">
+	  <button class="stat-button" value="win_loss_percent">Win Loss Percentage</button>
+	  <button class="stat-button" value="simple_rating">Simple Rating Score</button>
+	  <button class="stat-button" value="schedule_strength">Strength of Schedule</button>
+	  <button class="stat-button" value="total_pts">Total Points</button>
+	  <button class="stat-button" value="field_goals">Total Field Goals</button>
+	  <button class="stat-button" value="field_goal_percent">Field Goal Percentage</button>
+	  <button class="stat-button" value="three_ptrs">Total Three Pointers</button>
+	  <button class="stat-button" value="three_ptr_percent">Three Point Percentage</button>
+	  <button class="stat-button" value="free_throws">Total Free Throws</button>
+	  <button class="stat-button" value="free_throw_percent">Free Throw Percentage</button>
+	  <button class="stat-button" value="offense_rebounds">Offensive Rebounds</button>
+	  <button class="stat-button" value="total_rebounds">Total Rebounds</button>
+	  <button class="stat-button" value="assists">Assists</button>
+	  <button class="stat-button" value="steals">Steals</button>
+	  <button class="stat-button" value="blocks">Blocks</button>
+      </div>
+      <p>Step 2: Try another stat, save your bracket, or load a saved bracket</p>
+      <button id="reset-button">Reset</button>
+      <label>Percent Correct: <span id="percent-correct"></span>%</label>
+      <div id="bracket-load-save-area">
+	<div>
+	  <label>Save bracket for name:<input id="save-user-name"type="text"></label>
+	  <button id="save-button">Save Bracket</button>
+	</div>
+	<div>
+	  <label>Load bracket with name:<input id="load-user-name"type="text"></label>
+	  <button id="load-button">Load Bracket</button>
+	</div>
+      </div>
+    </div>
+    <div id="main-content">
+      
+    </div>
+    <div id="footer">
+      <a href="https://webster.cs.washington.edu/validate-html.php"><img src="https://webster.cs.washington.edu/images/w3c-html.png" alt="Valid HTML5" /></a><br />
+      <a href="https://webster.cs.washington.edu/validate-css.php"><img src="https://webster.cs.washington.edu/images/w3c-css.png" alt="Valid CSS" /></a>
+    </div>
+  </body>
+</html>

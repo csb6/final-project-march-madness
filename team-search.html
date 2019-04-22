@@ -1,0 +1,45 @@
+<!--
+    Cole Blakley
+    CSC 337
+    Final Project
+
+    This file contains the page layout for the Team Search page, which can be
+    accessed via a link on the Bracket Generator page. It uses 2 stylesheets:
+    team-search.css, which is specific to this page, and march-madness.css, which is
+    shared with index.html. The page content includes a title heading, an image of a
+    basketball, a search box to enter in a team's name, a table for holding
+    rows of data about each player on the searched team, and a header/footer.
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>March Madness Team Search</title>
+    <!--Stylesheet for this page only-->
+    <link href="team-search.css" type="text/css" rel="stylesheet">
+    <!--Site-wide stylesheet (shared with index.html)-->
+    <link href="march-madness.css" type="text/css" rel="stylesheet">
+    <script src="team-search.js"></script>
+  </head>
+  <body>
+    <div id="error-area"></div>
+    <div id="header">
+      <div>
+	<img src="basketball.png" alt="basketball">
+	<h1>March Madness Team Search</h1>
+	<q>Search a team - Get the players!</q>
+	<a href="index.html">Bracket Generator</a>
+      </div>
+    </div>
+    <div id="main-content">
+      <label id="search-area">Enter a team name:<input type="text"></label>
+      <button id="team-search-button">Search</button>
+      <table id="stat-table">
+	<tr><th>Name</th><th>Class</th><th>Position</th><th>Hometown</th><th>High School</th></tr>
+      </table>
+    </div>
+    <div id="footer">
+      <a href="https://webster.cs.washington.edu/validate-html.php"><img src="https://webster.cs.washington.edu/images/w3c-html.png" alt="Valid HTML5" /></a><br />
+      <a href="https://webster.cs.washington.edu/validate-css.php"><img src="https://webster.cs.washington.edu/images/w3c-css.png" alt="Valid CSS" /></a>
+    </div>
+  </body>
+</html>

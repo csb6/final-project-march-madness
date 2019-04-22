@@ -1,0 +1,91 @@
+/*
+  Cole Blakley
+  CSC 337
+  Final Project
+
+  This file contains the styles shared by index.html and team-search.html. All
+  pages have sans-serif fonts, blue headers/footers with round corners, an image
+  at the header's top left corner, and an initially empty area for showing error
+  messages. The header/footer/error area are centered on the page with 90% widths.
+  The link on both pages link to the other page, and it has slight spacing adjustments.
+  Additionally, the main-content area of both pages is centered, 90% wide, and has
+  a cornsilk background with slight padding.
+*/
+body {
+    font-family: Helvetica, sans-serif;
+}
+
+h1 {
+    margin-bottom: 10px;
+}
+
+q {
+    font-style: italic;
+    margin-bottom: 10px;
+}
+
+#error-area {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 90%;
+    padding: 5px;
+    text-align: center;
+}
+
+#error-area p {
+    font-size: 15pt;
+    margin: 0px;
+}
+
+#main-content {
+    background-color: cornsilk;
+    clear: left;
+    margin-bottom: 0px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0px;
+    max-width: 90%;
+    padding: 5px;
+}
+
+#header, #footer {
+    background-color: dodgerblue;
+    max-width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 5px;
+}
+
+#header {
+    border-radius: 10px 10px 0px 0px;
+    overflow: auto;
+    text-align: left;
+}
+
+#header > div img {
+    float: left;
+    margin: 10px;
+    margin-right: 15px;
+    max-width: 100px;
+    max-height: 100px;
+}
+
+#header a {
+    display: block;
+    font-size: 12pt;
+    height: 30px;
+    margin-top: 10px;
+    padding: 2px;
+}
+
+#footer {
+    border-radius: 0px 0px 10px 10px;
+    clear: left;
+    display: flex;
+    margin-top: 0px;
+}
+
+#footer a {
+    margin: 0px;
+    margin-left: 3px;
+}

@@ -1,0 +1,80 @@
+/*
+  Cole Blakley
+  CSC 337
+  Final Project
+
+  This file contains the styles specific to index.html. There are some slight spacing
+  adjustments to the various text labels/inputs in the header, and main-area
+  section displays the rounds horizontally using flexbox. Each section of the
+  bracket-area represents one round of the tournament and has equal widths. Each
+  round contains smaller grey boxes representing matchups. Because each matchup is 
+  using space-around spacing, when drawn in columns the grey boxes form a bracket.
+*/
+/* "Select a Stat" text */
+#header > p {
+    clear: left;
+    font-size: 14pt;
+    margin-bottom: 10px;
+    margin-left: 5px;
+    text-align: center;
+}
+
+/* Reset button */
+#header > button {
+    margin-left: 5px;
+}
+
+/* Percent Correct Label */
+#header > label {
+    display: block;
+    margin: 10px;
+}
+
+#main-content {
+    display: flex;
+}
+
+#bracket-load-save-area {
+    margin: 10px;
+}
+
+#bracket-load-save-area input {
+    margin-bottom: 5px;
+    margin-left: 5px;
+}
+
+#stat-choices {
+    clear: left;
+    margin-top: 5px;
+    text-align: left;
+}
+
+#stat-choices button {
+    font-size: 10pt;
+    height: 30px;
+    padding: 2px;
+    margin-bottom: 5px;
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+div.round {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 40%;
+}
+
+div.matchup {
+    background-color: lightgrey;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    margin-top: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
+    max-width: 100px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+}
