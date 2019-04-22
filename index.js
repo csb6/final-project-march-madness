@@ -47,7 +47,7 @@
         for(let i=0; i<matchups.length; i++) {
             let name1 = matchups[i][0];
             let name2 = matchups[i][1];
-            let url = "http://localhost:3000?mode=stat&stat="+stat+"&name1="+name1+
+            let url = "http://march-madness-generator.herokuapp.com:"+process.env.PORT+"?mode=stat&stat="+stat+"&name1="+name1+
                 "&name2="+name2;
             fetch(url)
                 .then(checkStatus)
@@ -117,7 +117,7 @@
 	//Set module-global indicator of currently-used stat
 	currentStat = stat;
         document.getElementById("main-content").innerHTML = "";
-        let url = "http://localhost:3000?mode=initial-matchups";
+        let url = "http://march-madness-generator.herokuapp.com:"+process.env.PORT+"?mode=initial-matchups";
         fetch(url)
             .then(checkStatus)
             .then(function(responseText) {
@@ -175,7 +175,7 @@
     function checkAccuracy() {
         let userBracket = getCurrentBracket();
         console.log(userBracket);
-        let url = "http://localhost:3000?mode=full-bracket";
+        let url = "http://march-madness-generator.herokuapp.com:"+process.env.PORT+"?mode=full-bracket";
         fetch(url)
             .then(checkStatus)
             .then(function(responseText) {
@@ -215,7 +215,7 @@
 		body : JSON.stringify(message)
 	    };
 	    console.log(fetchOptions);
-	    let url = "http://localhost:3000";
+	    let url = "http://march-madness-generator.herokuapp.com:"+process.env.PORT;
 	    fetch(url, fetchOptions)
 		.then(checkStatus)
 		.then(function(responseText) {
@@ -229,7 +229,7 @@
 
     function loadBracket() {
 	let userName = document.getElementById("load-user-name").value;
-	let url = "http://localhost:3000?mode=load-user&name="+userName;
+	let url = "http://march-madness-generator.herokuapp.com:"+process.env.PORT+"?mode=load-user&name="+userName;
 	fetch(url)
 	    .then(checkStatus)
 	    .then(function(responseText) {

@@ -32,7 +32,7 @@
     function selectTeam() {
 	clearStatTable();
         let teamName = document.querySelector("#search-area input").value;
-        let url = "http://localhost:3000?mode=team&name="+teamName;
+        let url = "http://march-madness-generator.herokuapp.com:"+process.env.PORT+"?mode=team&name="+teamName;
         fetch(url)
             .then(checkStatus)
             .then(function(responseText) {
