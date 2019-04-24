@@ -14,14 +14,6 @@
     });
     const fs = require("fs");
     const mysql = require("mysql");
-    //mysql://b36475d0fffd42:ed4df197@us-cdbr-iron-east-02.cleardb.net/heroku_773aec2ba21032d?reconnect=true
-    /*let connection = mysql.createConnection({
-        host: "localhost",
-        database: "march_madness",
-        user: "root",
-        password: "Orange-Spheres7!",
-        debug: "true"
-	});*/
     let connection = mysql.createConnection({
         host: "us-cdbr-iron-east-02.cleardb.net",
         database: "heroku_773aec2ba21032d",
@@ -29,6 +21,26 @@
         password: "ed4df197",
     });
 
+    /** This function queries the database to compare the values for 2 teams for
+        a given stat, and sends the name of the winner to the client */
+    function sendWinner(connection, res, name1, name2, stat) {
+	connection.query("SELECT name FROM team_stats "+
+                         "JOIN teams ON teams.id = team_stats.team_id "+
+                         "WHERE name='"+name1+"' OR name='"+name2+
+                         "' ORDER BY team_stats."+stat+" DESC LIMIT 1",
+                         function(err, result, fields) {
+                             if(err) {
+				 //Tell client that query ran into error
+				 res.sendStatus(500);
+			     } else {
+				 //Otherwise, send winning team's name to client
+				 res.send(JSON.stringify(result));
+			     }
+                         });
+    }
+
+    /** This function queries the database to get a list of stats about all players
+        on a given team (represented by teamId). It then sends this data to the client */
     function sendPlayerStats(connection, res, teamId) {
         connection.query("SELECT players.name, class, position, hometown, high_school "+
                          "FROM players JOIN teams ON teams.id = players.team_id "+
@@ -43,24 +55,18 @@
         app.get('/', function(req, res){
             res.header("Access-Control-Allow-Origin", "*");
             if(req.query.mode === "initial-matchups") {
+		//Send the client all of the matchups in round 0 (32 matchups)
                 let initialMatchups = JSON.parse(fs.readFileSync("initial-matchups.json", "utf8"));
                 res.send(JSON.stringify(initialMatchups));
-            } else if(req.query.mode === "stat") {
-                console.log(req.query);
-                connection.query("SELECT name FROM team_stats "+
-                                 "JOIN teams ON teams.id = team_stats.team_id "+
-                                 "WHERE name='"+req.query.name1+"' "+
-                                 "OR name='"+req.query.name2+
-                                 "' ORDER BY team_stats."+req.query.stat+" DESC LIMIT 1",
-                                 function(err, result, fields) {
-                                     if(err) throw err;
-                                     res.send(JSON.stringify(result));
-                                 });
-
+            } else if(req.query.mode === "winner") {
+		//Send the client the winner out of two given teams
+                sendWinner(connection, res, req.query.name1, req.query.name2, req.query.stat);
             } else if(req.query.mode === "full-bracket") {
-                let fullBracket = JSON.parse(fs.readFileSync("../matchups.json", "utf8"));
+		//Send the client a JSON structure representing the full, correct tournament
+                let fullBracket = JSON.parse(fs.readFileSync("matchups.json", "utf8"));
                 res.send(JSON.stringify(fullBracket));
             } else if(req.query.mode === "team") {
+		//Find the ID of a team with given name, then sends client that team's stats
                 let teamName = req.query.name;
                 connection.query("SELECT id FROM teams WHERE name = "+
                                  connection.escape(teamName), function(err, result, fields) {
@@ -75,29 +81,34 @@
 				     }
                                  });
             } else if(req.query.mode === "load-user") {
-		let userStat = fs.readFile("../user-brackets/"+req.query.name+".json", function(err, data) {
+		//Send the client a JSON file representing a saved bracket with the
+		//given name
+		console.log("../user-brackets/"+req.query.name+".json");
+		let userStat = fs.readFile("user-brackets/"+req.query.name
+					   +".json", function(err, data) {
 		    if(err) {
 			//Tell client if user's bracket not found
+			throw err;
 			res.sendStatus(404);
 		    } else {
+			console.log(data);
 			//If found, send the bracket to the user
 			res.send(JSON.stringify(data));
 		    }
 		});
-		res.send(userStat);
 	    }
         });
-	
+
 	app.post('/', jsonParser, function(req, res) {
+	    //When the client wants to save a bracket, write it into a JSON file
 	    res.header("Access-Control-Allow-Origin", "*");
 	    let userStat = req.body.stat;
 	    fs.writeFile("../user-brackets/"+req.body.name+".json", userStat, function(err) {
 		if(err) {
-		    //Bracket saved correctly
+		    //Bracket failed to save correctly
 		    res.sendStatus(500);
 		} else {
-		    //Bracket failed to save correctly
-		    res.sendStatus(200);
+		    res.send("Bracket saved sucessfully");
 		}
 	    });
 	});

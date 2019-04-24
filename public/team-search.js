@@ -11,8 +11,8 @@
 (function() {
     "use strict";
     //siteUrl is the web address of the remote server
-    const siteUrl = "http://march-madness-app.herokuapp.com";
-    //const siteUrl = "http://localhost:3000";
+    //const siteUrl = "http://march-madness-app.herokuapp.com";
+    const siteUrl = "http://localhost:3000";
 
     /** This function checks that the server responded with a success code. If it did,
         the promise was kept and the program uses the received data. If a failure, it
