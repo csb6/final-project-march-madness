@@ -75,7 +75,15 @@
 				     }
                                  });
             } else if(req.query.mode === "load-user") {
-		let userStat = fs.readFileSync("../user-brackets/"+req.query.name+".json", "utf8");
+		let userStat = fs.readFile("../user-brackets/"+req.query.name+".json", function(err, data) {
+		    if(err) {
+			//Tell client if user's bracket not found
+			sendStatus(404);
+		    } else {
+			//If found, send the bracket to the user
+			res.send(JSON.stringify(data));
+		    }
+		});
 		res.send(userStat);
 	    }
         });
