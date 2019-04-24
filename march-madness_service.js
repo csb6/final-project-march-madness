@@ -58,7 +58,7 @@
                                  });
 
             } else if(req.query.mode === "full-bracket") {
-                let fullBracket = JSON.parse(fs.readFileSync("matchups.json", "utf8"));
+                let fullBracket = JSON.parse(fs.readFileSync("../matchups.json", "utf8"));
                 res.send(JSON.stringify(fullBracket));
             } else if(req.query.mode === "team") {
                 let teamName = req.query.name;
@@ -75,7 +75,7 @@
 				     }
                                  });
             } else if(req.query.mode === "load-user") {
-		let userStat = fs.readFileSync("user-brackets/"+req.query.name+".json", "utf8");
+		let userStat = fs.readFileSync("../user-brackets/"+req.query.name+".json", "utf8");
 		res.send(userStat);
 	    }
         });
@@ -83,7 +83,7 @@
 	app.post('/', jsonParser, function(req, res) {
 	    res.header("Access-Control-Allow-Origin", "*");
 	    let userStat = req.body.stat;
-	    fs.writeFile("user-brackets/"+req.body.name+".json", userStat, function(err) {
+	    fs.writeFile("../user-brackets/"+req.body.name+".json", userStat, function(err) {
 		if(err) {
 		    //Bracket saved correctly
 		    res.sendStatus(500);
