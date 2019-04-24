@@ -14,13 +14,13 @@
     "use strict";
     //How many round are in the tournament (champion at end counts as 1 round)
     const ROUND_AMOUNT = 6;
-    //Total number of slots in for matchups in all rounds; used to checka accuracy
+    //Total number of team slots for matchups in all rounds; used to check accuracy
     const SLOT_AMOUNT = 125;
-    //Name of stat currently display on screen
+    //Name of stat currently displayed on screen
     let currentStat = "";
     //siteUrl is the web address of the remote server
-    //const siteUrl = "http://march-madness-app.herokuapp.com";
-    const siteUrl = "http://localhost:3000";
+    const siteUrl = "http://march-madness-app.herokuapp.com";
+    //const siteUrl = "http://localhost:3000";
 
     /** This function checks that the server responded with a success code. If it did,
         the promise was kept and the program uses the received data. If a failure, it
@@ -91,7 +91,7 @@
                 .then(function(responseText) {
                     //Add the winner to the array of winning teams
                     winners.push(JSON.parse(responseText)[0].name.trim());
-                    //Once a winner for every round collected, display them
+                    //Once a winner for every round is collected, display them
                     if(i === matchups.length-1) {
                         //displayWinners() will put these teams onscreen, then
                         //recursively call findWinners() for the next round
@@ -110,14 +110,14 @@
         the teams, the bracket is formed, narrowing down the teams by deciding
         the winners of each round until 1 champion is left */
     function displayWinners(stat, roundNum, matchups, winners) {
-        //Divs for all rounds; contains several matchups
+        //Divs for all rounds; each contains several matchups
         let rounds = document.querySelectorAll("#main-content .round");
         let round = rounds[roundNum];
-        //nextRound is a div column where all matchup boxes for a round belong
+        //nextRound is a div column containing all matchup divs for a round
         let nextRound = document.createElement("div");
         nextRound.className = "round";
         //newMatchups is a 2D array, where each element is a pair of winners. These
-        //are the matchups that the winners will play in for the next round
+        //are the matchups that the winners will play in during the next round
         let newMatchups = [];
         //Generate an array of new matchups by grouping teams into 2-team divs onscreen
         for(let i=0; i<round.children.length; i++) {
@@ -184,7 +184,7 @@
                 let initialMatchups = JSON.parse(responseText).matchups;
                 let firstRound = document.createElement("div");
                 firstRound.className = "round";
-                //Add each matchup to the page, placing each in correct round column
+                //Add each matchup to the page, placing each in the div for round 0
                 for(let i=0; i<initialMatchups.length; i++) {
                     let matchupData = initialMatchups[i];
                     let name1 = matchupData[0];
@@ -201,8 +201,8 @@
                 }
                 let mainContent = document.getElementById("main-content");
                 mainContent.appendChild(firstRound);
-                //Begin recursively building bracket for each round, starting with
-                //Round 0, the first round
+                //Begin recursively building bracket, starting with Round 0, the
+                //first round
                 findWinners(stat, 0, initialMatchups);
             })
             .catch(function(error) {
@@ -211,7 +211,7 @@
     }
 
     /** This function returns an object containing the bracket currently represented
-        in HTML on the page. The matchups key maps to a 2D array containing 3-element
+        in HTML on the page. The keys under "matchups" map to a 2D array containing 3-element
         arrays in form [team1, team2, roundNumber]. It should contain a total of 63
         matchups (32 + 16 + 8 + 4 + 2 + 1) for a complete bracket */
     function getCurrentBracket() {
@@ -224,7 +224,7 @@
             for(let j=0; j<round.children.length; j++) {
                 let matchupDiv = round.children[j];
                 let matchup = [];
-                //For each team in matchup
+                //For each team in matchup div, place in subarray
                 for(let z=0; z<matchupDiv.children.length; z++) {
                    matchup.push(matchupDiv.children[z].innerHTML);
                 }
@@ -267,11 +267,13 @@
     }
 
     /** This function saves the currently-displayed bracket into a file on the
-        server under a user-entered name */
+        server under a user-entered name. */
     function saveBracket() {
         //Only save the bracket if something is onscreen
         if(currentStat !== "") {
             let userName = document.getElementById("save-user-name").value;
+            //Tell server which stat was used to generate the current bracket;
+            //when loading from server, it will be user to recreate the bracket
             const message = { "name": userName, "stat" : currentStat };
             const fetchOptions = {
                 method : 'POST',
@@ -281,7 +283,6 @@
                 },
                 body : JSON.stringify(message)
             };
-	    console.log(fetchOptions);
             let url = siteUrl;
             //Post the new bracket (as JSON) onto the server
             fetch(url, fetchOptions)
@@ -305,8 +306,9 @@
         fetch(url)
             .then(checkStatus)
             .then(function(responseText) {
-		console.log(responseText);
-                displayBracket(responseText);
+		let stat = JSON.parse(responseText);
+		//Show bracket using the stat name previously saved by the user
+                displayBracket(stat);
             })
             .catch(function(error) {
                 displayError(error);
