@@ -284,7 +284,7 @@
 		body : JSON.stringify(message)
 	    };
 	    console.log(fetchOptions);
-	    let url = siteUrl+process.env.PORT;
+	    let url = siteUrl;
 	    //Post the new bracket (as JSON) onto the server
 	    fetch(url, fetchOptions)
 		.then(checkStatus)
