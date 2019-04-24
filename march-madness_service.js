@@ -78,7 +78,7 @@
 		let userStat = fs.readFile("../user-brackets/"+req.query.name+".json", function(err, data) {
 		    if(err) {
 			//Tell client if user's bracket not found
-			sendStatus(404);
+			res.sendStatus(404);
 		    } else {
 			//If found, send the bracket to the user
 			res.send(JSON.stringify(data));
