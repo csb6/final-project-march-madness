@@ -204,7 +204,7 @@
                 findWinners(stat, 0, initialMatchups);
             })
             .catch(function(error) {
-                displayError(message);
+                displayError(error);
         });
     }
 
