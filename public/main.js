@@ -48,12 +48,14 @@
     }
 
     /** This function re-enables any disabled buttons representing the possible
-        stat choices for the bracket generator to use */
+        stat choices for the bracket generator to use, and resets the module-
+        global currentStat variable that tracks what stat the user had selected */
     function resetButtons() {
         let statButtons = document.querySelectorAll("button.stat-button");
         for(let i=0; i<statButtons.length; i++) {
             statButtons[i].disabled = "";
         }
+	currentStat = "";
     }
 
     /** This function disables all stat buttons besides the one clicked, then starts
@@ -311,7 +313,11 @@
                 displayBracket(stat);
             })
             .catch(function(error) {
-                displayError(error);
+		if(error.message === "404") {
+                    displayError("Saved bracket for '"+userName+"' not found");
+		} else {
+		    displayError(error);
+		}
         });
     }
 

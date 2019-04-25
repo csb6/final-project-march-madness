@@ -103,11 +103,9 @@
                 fs.readFile("user-brackets/"+req.query.name
                                            +".json", "utf8", function(err, data) {
                     if(err) {
-                        //Tell client if user's bracket not found
-                        throw err;
+                        //Tell client if user's bracket not founf
                         res.sendStatus(404);
                     } else {
-                        console.log(data);
                         //If found, send the bracket to the user
                         res.send(JSON.stringify(data));
                     }

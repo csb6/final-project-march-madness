@@ -93,14 +93,30 @@
                 if(error.message === "404") {
                     //Tell user if team wasn't in the tournament
                     displayError("Team '"+teamName+"' not found");
-                }
-                displayError(error);
+                } else {
+                    displayError(error);
+		}
         });
     }
 
+    /** This function ensures that the user enters in   */
+    function validateInput() {
+        let teamName = document.querySelector("#search-area input").value;
+	//Validate team's name as alphabet letters, space, and dashes only
+	//Longest team name is ~20 characters, shortest ~3
+	if(teamName.match(/^[A-Za-z\s\-]{3,20}$/)) {
+	    selectTeam();
+	} else {
+	    //Notify user so they can reenter team name
+	    displayError("Invalid input");
+	}
+	
+    }
+
     /** When the page loads, this function binds the search button to query the
-        database for the player data of a user-given NCAA team */
+        database for the player data of a user-given NCAA team after input
+        validation */
     window.onload = function() {
-        document.getElementById("team-search-button").onclick = selectTeam;
+        document.getElementById("team-search-button").onclick = validateInput;
     };
 })();
