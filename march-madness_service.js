@@ -66,6 +66,9 @@
     }
 
     connection.connect(function() {
+	//Keep connection active so it isn't closed automatically by Heroku
+	setInterval(maintainConnection, 20000);
+	//Handle GET requests
         app.get('/', function(req, res){
             res.header("Access-Control-Allow-Origin", "*");
             if(req.query.mode === "initial-matchups") {
@@ -111,7 +114,7 @@
                 });
             }
         });
-
+	//Handle client POSTing a new bracket to be saved
 	app.post('/', jsonParser, function(req, res) {
             //When the client wants to save a bracket, write it into a JSON file
             res.header("Access-Control-Allow-Origin", "*");
@@ -129,5 +132,11 @@
 	});
 	
     });
+    
+    /** Make sure connection stays alive on Heroku (otherwise times out without user
+        activity)*/
+    function maintainConnection() {
+	connection.query('SELECT 1');
+    }
     app.listen(process.env.PORT || 3000);
 })();
